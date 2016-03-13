@@ -1,0 +1,7 @@
+<template>
+  <div class="toast toast-${type}" style="display: block;" click.delegate="close()">
+    <button if.bind="!!closeable" type="button" class="toast-close-button" role="button">&times;</button>
+    <div if.bind="!!title" class="toast-title">${title}</div>
+    <div if.bind="!!message" class="toast-message">${message}</div>
+  </div>
+</template>

@@ -1,12 +1,23 @@
-export class App {
-  configureRouter(config, router) {
-    config.title = 'Aurelia';
-    config.map([
-      { route: ['', 'welcome'], name: 'welcome',      moduleId: 'welcome',      nav: true, title: 'Welcome' },
-      { route: 'users',         name: 'users',        moduleId: 'users',        nav: true, title: 'Github Users' },
-      { route: 'child-router',  name: 'child-router', moduleId: 'child-router', nav: true, title: 'Child Router' }
-    ]);
+import {bindable, inject} from 'aurelia-framework';
+import {ToastService} from './toast/toast-service';
 
-    this.router = router;
+@inject(ToastService)
+export class App {
+  @bindable options = {}
+
+  constructor(toastService) {
+    this.$toastService = toastService;
   }
+
+  showToast() {
+    if (!this.options.type) {
+      console.log('invalid toast type');
+      return;
+    }
+
+    this.$toastService[this.options.type](this.options);
+  }
+
+  clearToasts() { this.$toastService.clearAll(); }
+  clearLastToast() { this.$toastService.clearLast(); }
 }
